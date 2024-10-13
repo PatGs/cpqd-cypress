@@ -16,7 +16,7 @@ describe('Acessar o site do CPQD e navegar na Home', () => {
     homeInicial.validarTecConect();
     homeInicial.voltarPagina();
   });
-
+  //Corrigir a validação da sessão de Soluções
   // it('Validar as Soluções', () => {
   //   homeInicial.validartextoSol();
   //   homeInicial.validarTeciORBILL();
@@ -26,9 +26,6 @@ describe('Acessar o site do CPQD e navegar na Home', () => {
     homeInicial.validartextSobre();
     homeInicial.voltarPagina(); 
   });
-  // it.skip('Validar o formulário', () => {
-  //   homeInicial.validarForm();    
-  // });
 
   describe('Envio de formulário com várias opções do select', () => {
     // Valores do Select
