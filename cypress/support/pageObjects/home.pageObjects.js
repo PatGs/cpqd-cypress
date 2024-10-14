@@ -40,26 +40,47 @@ class homeInicial{
         cy.get('h1')// Seleciona o elemento h1 na nova página
           .should('contain.text', ' Explore um mundo hiperconectado, com inovações constantes.'); // Verifica o texto no h1
     }
+
+    //Função que valida o carrossel de Soluções
     validartextoSol() {
         cy.get('h2')
           .contains('Soluções')          
           .should('be.visible');    // Verifica se o elemento está visível      
     }
-    validarTeciORBILL() {
-        cy.get('h2').contains('Orbill', {timeout: 15000})  // Localiza o botão pelo seletor e aumenta o timeout
-        .trigger('mouseover')
-        .should('be.visible')  // Verifica se o botão está visível
-          .click();  // Clica no botão "Saiba Mais" // Clica no botão "Saiba Mais"
-        
-          // cy.get('a.btn')
-          // .contains('Saiba Mais')
-          // .scrollIntoView()
-          // .should('be.visible')
-          // .click(); 
+    validarSolORBILL() {      
+       cy.get('a[href="https://cpqd.devhagens.com.br/solucoes/orbill/"]', {timeout: 15000})
+         .eq(1)
+         .click() 
 
         cy.get('h1') // Seleciona o elemento h1 na nova página
           .should('contain.text', 'Inteligência para monetização, faturamento e gestão de parcerias.'); // Verifica o texto no h1
     }
+    validarSolPailot(){
+      cy.get('a[href="https://cpqd.devhagens.com.br/solucoes/pailot/"]', {timeout: 15000})
+        .eq(1)
+        .click() 
+
+      cy.get('h1') // Seleciona o elemento h1 na nova página
+        .should('contain.text', ' AI + IoT: inteligência de dados habilitando a indústria 4.0.');
+    }
+    validarSolID(){
+      cy.get('a[href="https://cpqd.devhagens.com.br/solucoes/id/"]', {timeout: 15000})
+        .eq(1)
+        .click() 
+
+      cy.get('h1') // Seleciona o elemento h1 na nova página
+        .should('contain.text', ' Onboarding e autenticação digital: segurança e confiabilidade em cada passo.');
+    }
+    validarSolInterIntel(){
+      cy.get('a[href="https://cpqd.devhagens.com.br/solucoes/interacao-inteligente/"]', {timeout: 15000})
+        .eq(1)
+        .click() 
+
+      cy.get('h1') // Seleciona o elemento h1 na nova página
+        .should('contain.text', 'Tecnologia de Voz e IA: soluções de interação inteligente para diferentes canais de atendimento.');
+    }
+
+    // Função para validar os textos de Sobre
     validartextSobre(){
         cy.get('h2', { timeout: 15000 })
         .should('contain.text', 'Sobre o ')
@@ -71,48 +92,34 @@ class homeInicial{
         cy.get('h1')
           .contains('CONHEÇA NOSSA HISTÓRIA')
     }
+
+    //Função para voltar a página anterior
     voltarPagina() {
-        cy.go('back');  // Volta à página anterior
-    }    
+        cy.go('back');
+    }
+    // Funções para os Inputs dos Formulário e a validação do envio
     inputName() {
       cy.get(elem.inputNome).type('Teste Desconsiderar').clear().type('Nome Teste');
     }
     inputEMAIL() {
       cy.get(elem.inputEMAIL).type('teste@teste.com.br').clear().type('teste@email.com');
     }
-    // selectAtuacao() {
-    //   cy.get(elem.areaAtuacao).click()
-    // }
     validarCheck() {
       cy.get(elem.inputCheckBox).click()
     }
-    btnSubmit() {
+    btnSubmitHml() {
+      cy.get('.wpcf7-response-output')
+        .should('not.contain', 'Ocorreu um erro ao tentar enviar sua mensagem');
+
       cy.get(elem.btnSubmit).click()
     }
-
+    btnSubmitProd() {
+      cy.get('.wpcf7-response-output', { timeout: 15000 })
+      .should('be.visible')
+      .and('not.contain', 'Ocorreu um erro ao tentar enviar sua mensagem.')
+      .and('contain', 'Agradecemos a sua mensagem.');
+  }
     
 }
 
 export default new homeInicial();
-
-
-
-
-
-
-
-//Validação do Formulário que não foi usada
-// validarForm() {
-//   cy.get('h2')
-//     .contains('Cadastre-se para receber conteúdos sobre soluções, informações sobre o mercado e novidades do CPQD.')
-
-//     cy.get(elem.inputNome).type('Teste Desconsiderar').type('{enter}')
-
-//     cy.get(elem.inputEMAIL).type('teste@teste.com.br').type('{enter}')
-//     // Selecionar uma opção pelo valor do atributo 'value'
-//     cy.get('select[name="formacontato"]').select('Agronegócio')
-
-//     cy.get(elem.inputCheckBox).click()
-
-//     cy.get(elem.btnSubmit).click()
-// }

@@ -16,11 +16,18 @@ describe('Acessar o site do CPQD e navegar na Home', () => {
     homeInicial.validarTecConect();
     homeInicial.voltarPagina();
   });
-  //Corrigir a validação da sessão de Soluções
-  // it('Validar as Soluções', () => {
-  //   homeInicial.validartextoSol();
-  //   homeInicial.validarTeciORBILL();
-  // });
+  //validação da sessão de Soluções do carrossel
+  it('Validar as Soluções', () => {
+    homeInicial.validartextoSol();
+    homeInicial.validarSolORBILL();
+    homeInicial.voltarPagina(); 
+    homeInicial.validarSolPailot();
+    homeInicial.voltarPagina();
+    homeInicial.validarSolID();
+    homeInicial.voltarPagina();
+    homeInicial.validarSolInterIntel();
+    homeInicial.voltarPagina();
+  });
 
   it('Validar o texto Sobre', () => {
     homeInicial.validartextSobre();
@@ -38,13 +45,11 @@ describe('Acessar o site do CPQD e navegar na Home', () => {
         'Utilities',
         'Outros'
     ];
-
     // Itera sobre cada opção do select
     opcoes.forEach((opcao) => {
         it(`Deve enviar o formulário com a opção ${opcao}`, () => {
             // Visitar a página onde o formulário está localizado
-            cy.visit('/'); // Alterar conforme necessário
-            
+            cy.visit('/'); // Alterar conforme necessário            
             // Preencher o campo nome
             homeInicial.inputName();
             // Preencher o campo email
@@ -53,11 +58,8 @@ describe('Acessar o site do CPQD e navegar na Home', () => {
             cy.get('select[name="formacontato"]').select(opcao);
             // Clicar no checkbox de LGPD
             homeInicial.validarCheck();
-            // Submeter o formulário
-            homeInicial.btnSubmit();            
-           
-            // Verificar se o formulário foi enviado corretamente
-            cy.get('form').should('not.exist'); // Exemplo: formulário desaparece
+            // Submeter o formulário em Homologação
+            homeInicial.btnSubmitHml();
         });
     });
   });
